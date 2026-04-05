@@ -22,7 +22,12 @@ const SolutionCard = ({ title, content, variant, isLoading, isWinner }) => {
           <span className={`text-xs font-semibold uppercase tracking-widest ${labelColor}`}>
             {title}
           </span>
-          <div className="h-2 w-2 rounded-full bg-primary-dim animate-pulse-glow" />
+          <div className="flex items-center px-3 py-1.5 rounded-lg bg-surface-bright/30 border border-outline/20 backdrop-blur-md shadow-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary-dim/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+            <span className="text-[10px] font-bold tracking-widest uppercase text-text-muted relative z-10 animate-pulse-glow">
+              Generating...
+            </span>
+          </div>
         </div>
         <div className="space-y-3">
           <div className="h-4 w-[85%] rounded animate-shimmer" />

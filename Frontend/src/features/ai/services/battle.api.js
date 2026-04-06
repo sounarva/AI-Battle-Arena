@@ -5,7 +5,7 @@ const BASE_API = axios.create({
 })
 
 const battleApi = async (query) =>{
-    const response = await BASE_API.post("/use-graph", {
+    const response = await BASE_API.post("/api/v1/ai/battle", {
         query
     })
     return response.data

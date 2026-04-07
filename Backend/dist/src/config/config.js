@@ -1,21 +1,6 @@
 import { config } from "dotenv";
-config()
-
-type Env = {
-    GEMINI_API_KEY: string,
-    MISTRAL_API_KEY: string,
-    COHERE_API_KEY: string,
-    JWT_SECRET: string,
-    REDIS_HOST: string,
-    REDIS_PORT: string,
-    REDIS_PASSWORD: string,
-    GOOGLE_CLIENT_ID: string,
-    GOOGLE_CLIENT_SECRET: string,
-    GOOGLE_CALLBACK_URI: string,
-    FRONTEND_URL: string
-}
-
-const env: Env = {
+config();
+const env = {
     GEMINI_API_KEY: process.env.GEMINI_API_KEY || "",
     MISTRAL_API_KEY: process.env.MISTRAL_API_KEY || "",
     COHERE_API_KEY: process.env.COHERE_API_KEY || "",
@@ -27,6 +12,6 @@ const env: Env = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
     GOOGLE_CALLBACK_URI: process.env.GOOGLE_CALLBACK_URI || "http://localhost:3000/api/v1/auth/google/callback",
     FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:5173"
-}
-
-export default env
+};
+export default env;
+//# sourceMappingURL=config.js.map

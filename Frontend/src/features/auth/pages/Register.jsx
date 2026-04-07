@@ -22,7 +22,7 @@ const Register = () => {
     }
 
     const handleGoogleAuth = () => {
-        window.location.href = "http://localhost:3000/api/v1/auth/google";
+        window.location.href = "/api/v1/auth/google";
     }
 
     if (loading) {

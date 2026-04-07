@@ -6,7 +6,7 @@ import aiRoutes from "./routes/ai.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import cors from "cors";
+// import cors from "cors"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import env from "./config/config.js";
 const app = express();
@@ -24,11 +24,11 @@ passport.use(new GoogleStrategy({
 }));
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true
-}));
+// app.use(cors({
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//     credentials: true
+// }))
 app.use(express.static("./public"));
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/auth", userRoutes);

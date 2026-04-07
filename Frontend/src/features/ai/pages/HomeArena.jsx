@@ -7,7 +7,7 @@ import BattleArena from '../../../components/BattleArena';
 import JudgePanel from '../../../components/JudgePanel';
 import { useArena } from '../hooks/useArena';
 
-const Home = () => {
+const HomeArena = () => {
     const { result, isLoading, error, handleBattle } = useArena()
     const [submittedQuery, setSubmittedQuery] = useState('');
     const [appMounted, setAppMounted] = useState(false);
@@ -57,4 +57,4 @@ const Home = () => {
     );
 }
 
-export default Home
+export default HomeArena

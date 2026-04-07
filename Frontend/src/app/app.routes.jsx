@@ -1,13 +1,18 @@
 import { createBrowserRouter, Navigate } from "react-router"
-import Home from "../features/ai/pages/Home"
+import HomeArena from "../features/ai/pages/HomeArena"
+import Home from "../features/auth/pages/Home"
 
 export const appRoutes = createBrowserRouter([
     {
-        path: "/home",
+        path: "/",
         element: <Home />
     },
     {
-        path: "/",
-        element: <Navigate to="/home" />
+        path: "/arena",
+        element: <HomeArena />
+    },
+    {
+        path: "/battle-arena",
+        element: <Navigate to="/arena" />
     }
 ])

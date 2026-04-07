@@ -12,6 +12,9 @@ interface CustomRequest extends Request {
     }
 }
 
+
+
+
 const registerController = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
@@ -45,7 +48,7 @@ const registerController = async (req: Request, res: Response) => {
             success: true,
             message: "User registered successfully ✅",
             user: {
-                _id: newUser._id,
+                id: newUser._id,
                 email: newUser.email
             }
         })
@@ -97,7 +100,11 @@ const loginController = async (req: Request, res: Response) => {
 
         res.status(200).json({
             success: true,
-            message: "User logged in successfully ✅"
+            message: "User logged in successfully ✅",
+            user: {
+                id: user._id,
+                email: user.email
+            }
         })
     } catch (error: any) {
         res.status(500).json({
@@ -140,8 +147,8 @@ const getmeController = async (req: CustomRequest, res: Response) => {
                     message: "User not found"
                 })
         }
-        const user = await userModel.findById(req.user.id)
-        if (!user) {
+        const loggedInUser = await userModel.findById(req.user.id)
+        if (!loggedInUser) {
             return res.status(400)
                 .json({
                     success: false,
@@ -151,9 +158,9 @@ const getmeController = async (req: CustomRequest, res: Response) => {
         res.status(200).json({
             success: true,
             message: "User found successfully ✅",
-            userData: {
-                id: user._id,
-                email: user.email
+            user: {
+                id: loggedInUser._id,
+                email: loggedInUser.email
             }
         })
     } catch (error: any) {
@@ -164,4 +171,39 @@ const getmeController = async (req: CustomRequest, res: Response) => {
     }
 }
 
-export { registerController, loginController, logoutController, getmeController }
+const googleCallbackController = async (req: Request, res: Response) => {
+    try {
+        const profile: any = req.user;
+        if (!profile || !profile.emails || !profile.emails[0].value) {
+            return res.redirect("http://localhost:5173/auth/login");
+        }
+
+        const email = profile.emails[0].value;
+        let user = await userModel.findOne({ email });
+
+        if (!user) {
+            user = await userModel.create({ email });
+        }
+
+        const token = jwt.sign({
+            id: user._id
+        },
+            env.JWT_SECRET,
+            {
+                expiresIn: "1d"
+            }
+        )
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "strict",
+            maxAge: 24 * 60 * 60 * 1000
+        })
+
+        res.redirect("http://localhost:5173/");
+    } catch (error: any) {
+        res.redirect("http://localhost:5173/auth/login");
+    }
+}
+
+export { registerController, loginController, logoutController, getmeController, googleCallbackController }

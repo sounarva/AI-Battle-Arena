@@ -1,8 +1,20 @@
+import useAuth from "../features/auth/hooks/useAuth"
+import { useArena } from "../features/ai/hooks/useArena";
+import { useNavigate } from "react-router";
+
 const TopBar = () => {
+  const { logout } = useAuth()
+  const { setResult } = useArena()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    await logout()
+    setResult(null)
+  }
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 absolute top-0 left-0 z-50">
       {/* Logo Area */}
-      <div className="flex items-center gap-2.5 cursor-pointer group">
+      <div onClick={() => navigate("/")} className="flex items-center gap-2.5 cursor-pointer group">
         <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-surface-card border border-outline/20 group-hover:border-primary/50 transition-colors">
           {/* Custom SVG Logo for Model Duel */}
           <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +30,7 @@ const TopBar = () => {
       </div>
 
       {/* Logout Button */}
-      <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-card/30 backdrop-blur-md border border-outline/10 text-sm font-medium text-text-muted hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300">
+      <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-card/30 backdrop-blur-md border border-outline/10 text-sm font-medium text-text-muted hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300">
         <span>Logout</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>

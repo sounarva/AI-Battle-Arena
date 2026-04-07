@@ -1,17 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import CTAButton from './CTAButton';
+import useAuth from '../hooks/useAuth';
 
 const HeroSection = () => {
     const navigate = useNavigate();
+    const { user } = useAuth()
 
     const handleStartBattle = () => {
-        // TODO: Replace with actual auth check when auth is implemented
-        const userLoggedIn = false;
-        if (userLoggedIn) {
-            navigate('/arena');
+        if (user) {
+            navigate('/battle-arena');
         } else {
-            navigate('/login');
+            navigate('/auth/login');
         }
     };
 

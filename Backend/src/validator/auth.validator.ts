@@ -4,7 +4,11 @@ import { type Request, type Response, type NextFunction } from "express"
 export const validate = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()[0]?.msg })
+        return res.status(400)
+            .json({
+                success: false,
+                message: errors.array()[0]?.msg
+            })
     }
     next()
 }
@@ -13,9 +17,9 @@ const authValidator = [
     body("email")
         .trim()
         .notEmpty()
-        .withMessage("Email is required 📧")
+        .withMessage("Email is required")
         .isEmail()
-        .withMessage("Invalid email 📧")
+        .withMessage("Invalid email")
         .normalizeEmail(),
 
     body("password")

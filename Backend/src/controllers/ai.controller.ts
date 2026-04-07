@@ -12,7 +12,7 @@ const battleController = async (req: Request, res: Response) => {
         const result = await invokeGraph(query)
         return res.status(200).json({
             success: true,
-            message: "Graph invoked successfully 📊",
+            message: "Graph invoked successfully",
             result
         })
     } catch (error) {

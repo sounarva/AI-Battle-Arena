@@ -1,7 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router';
+import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
+    const { user } = useAuth()
     return (
         <nav
             id="navbar"
@@ -32,39 +33,52 @@ const Navbar = () => {
                 </div>
             </Link>
 
-            {/* Right — Auth buttons */}
+            {/* Right — Auth or Profile */}
             <div className="flex items-center gap-3">
-                <Link
-                    to="/auth/login"
-                    id="navbar-login"
-                    className="
-                        px-5 py-2
-                        text-sm font-medium
-                        text-[#c2c6d6] hover:text-white
-                        rounded-lg
-                        border border-white/6 hover:border-white/12
-                        bg-white/2 hover:bg-white/5
-                        transition-all duration-200
-                    "
-                >
-                    Login
-                </Link>
-                <Link
-                    to="/auth/register"
-                    id="navbar-signup"
-                    className="
-                        px-5 py-2
-                        text-sm font-medium
-                        text-white
-                        rounded-lg
-                        bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]
-                        shadow-[0_0_16px_rgba(59,130,246,0.15)]
-                        hover:shadow-[0_0_20px_rgba(59,130,246,0.25)]
-                        transition-all duration-200
-                    "
-                >
-                    Sign Up
-                </Link>
+                {user ? (
+                    <div className="flex items-center gap-3 pr-4 p-1 rounded-full bg-surface-card border border-outline/20 backdrop-blur-xl shadow-lg ring-1 ring-white/5 hover:ring-primary/30 transition-all duration-300 cursor-pointer group">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-linear-to-br from-primary-dim to-primary text-white font-bold text-sm shadow-[0_0_10px_rgba(132,85,239,0.3)] group-hover:shadow-[0_0_15px_rgba(132,85,239,0.5)] transition-shadow">
+                            {user?.email?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                        <span className="text-sm font-medium text-[#c2c6d6] group-hover:text-white transition-colors">
+                            {user?.email?.split('@')[0] || 'User'}
+                        </span>
+                    </div>
+                ) : (
+                    <>
+                        <Link
+                            to="/auth/login"
+                            id="navbar-login"
+                            className="
+                                px-5 py-2
+                                text-sm font-medium
+                                text-[#c2c6d6] hover:text-white
+                                rounded-lg
+                                border border-white/6 hover:border-white/12
+                                bg-white/2 hover:bg-white/5
+                                transition-all duration-200
+                            "
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            to="/auth/register"
+                            id="navbar-signup"
+                            className="
+                                px-5 py-2
+                                text-sm font-medium
+                                text-white
+                                rounded-lg
+                                bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]
+                                shadow-[0_0_16px_rgba(59,130,246,0.15)]
+                                hover:shadow-[0_0_20px_rgba(59,130,246,0.25)]
+                                transition-all duration-200
+                            "
+                        >
+                            Sign Up
+                        </Link>
+                    </>
+                )}
             </div>
         </nav>
     );

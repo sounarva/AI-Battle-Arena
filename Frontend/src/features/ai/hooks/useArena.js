@@ -20,6 +20,7 @@ export const useArena = () => {
 
     return {
         result,
+        setResult,
         isLoading,
         error,
         handleBattle

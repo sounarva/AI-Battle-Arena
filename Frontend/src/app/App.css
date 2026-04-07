@@ -2,19 +2,47 @@
 
 @theme {
   --font-inter: "Inter", sans-serif;
+  --font-headline: "Inter", sans-serif;
+  
+  /* Background/Surface */
   --color-bg: #0e0e13;
-  --color-surface: #131319;
-  --color-surface-card: #19191f;
-  --color-surface-high: #1f1f26;
+  --color-surface-dim: #0e0e13;
+  --color-surface: #0e0e13;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #131319;
+  --color-surface-container: #19191f;
+  --color-surface-container-high: #1f1f26;
+  --color-surface-container-highest: #25252d;
   --color-surface-bright: #2c2b33;
+  --color-inverse-surface: #fcf8ff;
+  
+  /* Primary */
   --color-primary: #ba9eff;
   --color-primary-dim: #8455ef;
+  --color-primary-fixed: #ae8dff;
+  --color-primary-container: #ae8dff;
+  --color-on-primary: #39008c;
+  --color-on-primary-fixed: #000000;
+  --color-on-primary-container: #2b006e;
+  
+  /* Secondary / Tertiary */
+  --color-secondary-dim: #bb87f1;
+  --color-tertiary: #ff97b5;
+
+  /* Accent */
   --color-cyan-accent: #06B6D4;
-  --color-text: #f9f5fd;
-  --color-text-muted: #acaab1;
-  --color-outline: #48474d;
   --color-gold: #F59E0B;
   --color-gold-dim: #D97706;
+
+  /* Text & On-Surface */
+  --color-text: #f9f5fd;
+  --color-text-muted: #acaab1;
+  --color-on-surface: #f9f5fd;
+  --color-on-surface-variant: #acaab1;
+  
+  /* Outline */
+  --color-outline: #76747b;
+  --color-outline-variant: #48474d;
 }
 
 /* Base */
@@ -142,4 +170,32 @@ code {
 
 pre code {
   color: #acaab1;
+}
+
+/* Obsidian Nexus Form Specific Styles */
+.glass-container, .glass-card {
+  background: rgba(25, 25, 31, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(72, 71, 77, 0.15);
+}
+
+.signature-glow {
+  background: linear-gradient(135deg, var(--color-primary-dim) 0%, var(--color-primary) 100%);
+  transition: all 0.3s ease;
+}
+
+.signature-glow:hover, .glow-hover:hover {
+  box-shadow: 0 0 20px rgba(132, 85, 239, 0.4);
+  transform: translateY(-1px);
+}
+
+.grid-overlay {
+  background-image: radial-gradient(rgba(72, 71, 77, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.grid-overlay-lines {
+  background-image: linear-gradient(rgba(72, 71, 77, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(72, 71, 77, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

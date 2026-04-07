@@ -13,7 +13,7 @@ const TopBar = () => {
         </div>
         <span className="font-extrabold text-sm tracking-widest uppercase">
           <span className="text-text-muted transition-colors group-hover:text-text">Model</span>{' '}
-          <span className="bg-linear-to-r from-primary-dim to-cyan-accent bg-clip-text text-transparent">Duel</span>
+          <span className="bg-linear-to-r from-primary-dim to-cyan-accent bg-clip-text text-transparent">Duel Arena</span>
         </span>
       </div>
 

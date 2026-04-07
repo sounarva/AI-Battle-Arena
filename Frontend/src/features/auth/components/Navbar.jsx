@@ -27,7 +27,7 @@ const Navbar = () => {
                     </div>
                     <span className="font-extrabold text-sm tracking-widest uppercase">
                         <span className="text-text-muted transition-colors group-hover:text-text">Model</span>{' '}
-                        <span className="bg-linear-to-r from-primary-dim to-cyan-accent bg-clip-text text-transparent">Duel</span>
+                        <span className="bg-linear-to-r from-primary-dim to-cyan-accent bg-clip-text text-transparent">Duel Arena</span>
                     </span>
                 </div>
             </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
             {/* Right — Auth buttons */}
             <div className="flex items-center gap-3">
                 <Link
-                    to="/login"
+                    to="/auth/login"
                     id="navbar-login"
                     className="
                         px-5 py-2
@@ -50,14 +50,14 @@ const Navbar = () => {
                     Login
                 </Link>
                 <Link
-                    to="/signup"
+                    to="/auth/register"
                     id="navbar-signup"
                     className="
                         px-5 py-2
                         text-sm font-medium
                         text-white
                         rounded-lg
-                        bg-[#3B82F6] hover:bg-[#2563EB]
+                        bg-linear-to-r from-[#3B82F6] to-[#8B5CF6]
                         shadow-[0_0_16px_rgba(59,130,246,0.15)]
                         hover:shadow-[0_0_20px_rgba(59,130,246,0.25)]
                         transition-all duration-200

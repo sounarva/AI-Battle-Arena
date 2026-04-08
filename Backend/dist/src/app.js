@@ -32,7 +32,10 @@ app.use(cookieParser());
 app.use(express.static("./public"));
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/auth", userRoutes);
-app.use("*name", (req, res) => {
+app.use((req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+        return next();
+    }
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 export default app;

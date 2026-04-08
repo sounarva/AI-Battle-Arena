@@ -16,8 +16,9 @@ const battleController = async (req: Request, res: Response) => {
             result
         })
     } catch (error: any) {
+        console.error("Battle Controller Error:", error)
         return res.status(500).json({
-            message: error.message
+            message: error.message || "Internal server error"
         })
     }
 }

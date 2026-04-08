@@ -12,7 +12,9 @@ export const useArena = () => {
             const response = await battleApi(query)
             setResult(response?.result)
         } catch (error) {
-            setError(error?.message)
+            const serverMessage = error?.response?.data?.message || error?.message
+            console.error("Battle error:", serverMessage)
+            setError(serverMessage)
         } finally {
             setIsLoading(false)
         }

@@ -29,11 +29,11 @@ app.use(cookieParser());
 //     methods: ["GET", "POST"],
 //     credentials: true
 // }))
-app.use(express.static("./public"));
+app.use(express.static(path.join(__dirname, "../public")));
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/auth", userRoutes);
-app.use((req, res, next) => {
-    if (req.originalUrl.startsWith('/api')) {
+app.get("*", (req, res, next) => {
+    if (req.originalUrl.startsWith("/api")) {
         return next();
     }
     res.sendFile(path.join(__dirname, "../public/index.html"));

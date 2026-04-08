@@ -1,6 +1,6 @@
 import { StateSchema, MessagesValue, ReducedValue, StateGraph, START, END } from "@langchain/langgraph";
 import { createAgent, HumanMessage, providerStrategy } from "langchain";
-import { gemini_model, mistral_model, cohere_model } from "./models.service.js";
+import { mistral_model, cohere_model } from "./models.service.js";
 import { z } from "zod";
 const State = new StateSchema({
     messages: MessagesValue,
@@ -44,7 +44,7 @@ const JudgeNode = async (state) => {
     const { messages, solution_1, solution_2 } = state;
     const problem = messages[0].content;
     const judge = createAgent({
-        model: gemini_model,
+        model: mistral_model,
         tools: [],
         responseFormat: providerStrategy(z.object({
             solution_1_score: z.number().min(0).max(10),

@@ -48,7 +48,7 @@ const JudgeNode: GraphNode<typeof State> = async (state) => {
     const { messages, solution_1, solution_2 } = state
     const problem = messages[0].content as string
     const judge = createAgent({
-        model: gemini_model,
+        model: mistral_model,
         tools: [],
         responseFormat: providerStrategy(z.object({
             solution_1_score: z.number().min(0).max(10),

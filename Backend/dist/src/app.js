@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/auth", userRoutes);
-app.get("*", (req, res, next) => {
+app.get("*name", (req, res, next) => {
     if (req.originalUrl.startsWith("/api")) {
         return next();
     }

@@ -1,5 +1,5 @@
 import { StateSchema, MessagesValue, ReducedValue, StateGraph, START, END } from "@langchain/langgraph";
-import { createAgent, HumanMessage, providerStrategy } from "langchain";
+import { HumanMessage } from "@langchain/core/messages";
 import { mistral_model, cohere_model } from "./models.service.js";
 import { z } from "zod";
 const State = new StateSchema({
@@ -55,35 +55,28 @@ const SolutionNode = async (state) => {
 const JudgeNode = async (state) => {
     const { messages, solution_1, solution_2 } = state;
     const problem = messages[0].content;
-    const judge = createAgent({
-        model: mistral_model,
-        tools: [],
-        responseFormat: providerStrategy(z.object({
-            solution_1_score: z.number().min(0).max(10),
-            solution_2_score: z.number().min(0).max(10),
-            solution_1_reasoning: z.string(),
-            solution_2_reasoning: z.string(),
-        }))
+    const judgeSchema = z.object({
+        solution_1_score: z.number().min(0).max(10),
+        solution_2_score: z.number().min(0).max(10),
+        solution_1_reasoning: z.string(),
+        solution_2_reasoning: z.string(),
     });
-    const judgeResponse = await judge.invoke({
-        messages: [
-            new HumanMessage(`You are a judge in a coding competition. You will be given two solutions to a problem. Your task is to evaluate the solutions and provide a score for each solution on a scale of 0 to 10. The solution with the higher score is the better solution and also provide the reasoning for the score of both solutions.
+    const structuredModel = mistral_model.withStructuredOutput(judgeSchema);
+    const judgeResponse = await structuredModel.invoke(`You are a judge in a coding competition. You will be given two solutions to a problem. Your task is to evaluate the solutions and provide a score for each solution on a scale of 0 to 10. The solution with the higher score is the better solution and also provide the reasoning for the score of both solutions.
 
-                Problem: ${problem}
-                Solution 1: ${solution_1}
-                Solution 2: ${solution_2}
+        Problem: ${problem}
+        Solution 1: ${solution_1}
+        Solution 2: ${solution_2}
 
-                Provide your response in the following format:
-                {
-                    "solution_1_score": <score>,
-                    "solution_2_score": <score>,
-                    "solution_1_reasoning": "<reasoning>",
-                    "solution_2_reasoning": "<reasoning>"
-                }`)
-        ]
-    });
+        Provide your response in the following JSON format:
+        {
+            "solution_1_score": <score>,
+            "solution_2_score": <score>,
+            "solution_1_reasoning": "<reasoning>",
+            "solution_2_reasoning": "<reasoning>"
+        }`);
     return {
-        judge_recommendation: judgeResponse.structuredResponse
+        judge_recommendation: judgeResponse
     };
 };
 const graph = new StateGraph(State)

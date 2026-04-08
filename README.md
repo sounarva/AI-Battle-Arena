@@ -147,7 +147,7 @@ The application is configured to be deployed on platforms like **Render**.
 4. **Backend Build Process:** `npm install && npm run build`
 5. **Backend Start Command:** `npm start` (Runs `node dist/server.js`)
 6. **Frontend Process:** Deploy as a Static Site using `npm run build` locally or automated pipeline.
-7. **Deployed Link:** https://ai-battle-arena-bzxf.onrender.com
+7. **Deployed Link:** https://ai-battle-arena-bpap.onrender.com
 
 
 ---

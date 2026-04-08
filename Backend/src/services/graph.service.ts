@@ -1,6 +1,6 @@
 import { StateSchema, MessagesValue, ReducedValue, type GraphNode, StateGraph, START, END } from "@langchain/langgraph";
 import { HumanMessage } from "@langchain/core/messages";
-import { mistral_model, cohere_model } from "./models.service.js";
+import { gemini_model, mistral_model, cohere_model } from "./models.service.js";
 import { z } from "zod"
 
 const State = new StateSchema({
@@ -68,7 +68,7 @@ const JudgeNode: GraphNode<typeof State> = async (state) => {
         solution_2_reasoning: z.string(),
     })
 
-    const structuredModel = mistral_model.withStructuredOutput(judgeSchema)
+    const structuredModel = gemini_model.withStructuredOutput(judgeSchema)
 
     const judgeResponse = await structuredModel.invoke(
         `You are a judge in a coding competition. You will be given two solutions to a problem. Your task is to evaluate the solutions and provide a score for each solution on a scale of 0 to 10. The solution with the higher score is the better solution and also provide the reasoning for the score of both solutions.

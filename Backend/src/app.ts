@@ -30,17 +30,18 @@ app.use(cookieParser())
 //     methods: ["GET", "POST"],
 //     credentials: true
 // }))
-app.use(express.static(path.join(__dirname, "../public")));
+const publicPath = path.join(__dirname, "../public");
+app.use(express.static(publicPath));
 
 app.use("/api/v1/ai", aiRoutes)
 app.use("/api/v1/auth", userRoutes)
 
-app.get("*name", (req, res, next) => {
+app.get("*", (req, res, next) => {
     if (req.originalUrl.startsWith("/api")) {
         return next();
     }
 
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+    res.sendFile(path.join(publicPath, "index.html"));
 });
 
 export default app

@@ -33,10 +33,23 @@ const State = new StateSchema({
 })
 
 const SolutionNode: GraphNode<typeof State> = async (state) => {
-    const [mistral_response, cohere_response] = await Promise.all([
-        mistral_model.invoke(state.messages[0].content as string),
-        cohere_model.invoke(state.messages[0].content as string)
-    ])
+    const query = state.messages[0].content as string
+
+    let mistral_response, cohere_response
+
+    try {
+        [mistral_response, cohere_response] = await Promise.all([
+            mistral_model.invoke(query).catch(err => {
+                throw new Error(`Mistral API Error: ${err.message}`)
+            }),
+            cohere_model.invoke(query).catch(err => {
+                throw new Error(`Cohere API Error: ${err.message}`)
+            })
+        ])
+    } catch (err: any) {
+        console.error("SolutionNode error:", err.message)
+        throw err
+    }
 
     return {
         solution_1: (mistral_response as any).content as string,

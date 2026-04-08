@@ -9,7 +9,7 @@ import env from "../config/config.js"
 // })
 
 const mistral_model = new ChatMistralAI({
-    model: "mistral-medium-latest",
+    model: "mistral-small-latest",
     apiKey: env.MISTRAL_API_KEY
 })
 

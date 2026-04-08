@@ -1,6 +1,6 @@
 import { StateSchema, MessagesValue, ReducedValue, type GraphNode, StateGraph, START, END } from "@langchain/langgraph";
 import { createAgent, HumanMessage, providerStrategy } from "langchain";
-import { gemini_model, mistral_model, cohere_model } from "./models.service.js";
+import { mistral_model, cohere_model } from "./models.service.js";
 import { z } from "zod"
 
 const State = new StateSchema({

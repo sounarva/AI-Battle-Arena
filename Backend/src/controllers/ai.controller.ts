@@ -15,10 +15,9 @@ const battleController = async (req: Request, res: Response) => {
             message: "Graph invoked successfully",
             result
         })
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
         return res.status(500).json({
-            message: "Internal server error"
+            message: error.message
         })
     }
 }

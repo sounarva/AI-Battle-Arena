@@ -7,7 +7,7 @@ import env from "../config/config.js";
 //     apiKey: env.GEMINI_API_KEY
 // })
 const mistral_model = new ChatMistralAI({
-    model: "mistral-small-latest",
+    model: "mistral-medium-latest",
     apiKey: env.MISTRAL_API_KEY
 });
 const cohere_model = new ChatCohere({
